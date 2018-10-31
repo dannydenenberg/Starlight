@@ -1,0 +1,6 @@
+sudo pip3 install gTTS
+sudo pip3 install SpeechRecognition
+sudo pip3 install weather-api
+sudo pip3 install pyaudio
+
+

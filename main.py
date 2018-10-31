@@ -10,17 +10,27 @@ from weather import Weather
 #import urllib2
 import sys
 
-def talkToMe(audio):
+def talkToMe(text):
     "speaks audio passed as argument"
 
-    print(audio)
-    for line in audio.splitlines():
-        os.system("say " + audio)
+    print(text)
+    # Language in which you want to convert
+    language = 'en'
 
-    #  use the system's inbuilt say command instead of mpg123
-    #  text_to_speech = gTTS(text=audio, lang='en')
-    #  text_to_speech.save('audio.mp3')
-    #  os.system('mpg123 audio.mp3')
+    # Passing the text and language to the engine,
+    # here we have marked slow=False. Which tells
+    # the module that the converted audio should
+    # have a high speed
+    myobj = gTTS(text=text, lang=language, slow=False)
+
+    # Saving the converted audio in a mp3 file named
+    # welcome
+    myobj.save("welcome1.mp3")
+
+    # Playing the converted file
+    os.system("mpg123 welcome1.mp3")
+    os.system("rm welcome1.mp3")
+
 
 
 def myCommand():
