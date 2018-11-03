@@ -6,9 +6,10 @@ import webbrowser
 import smtplib
 import requests
 from weather import Weather
-#import urllib
-#import urllib2
+import urllib
+import urllib2
 import sys
+from time import ctime
 
 def talkToMe(text):
     "speaks audio passed as argument"
@@ -31,8 +32,6 @@ def talkToMe(text):
     os.system("mpg123 welcome1.mp3")
     os.system("rm welcome1.mp3")
 
-
-
 def myCommand():
     "listens for commands"
 
@@ -47,9 +46,8 @@ def myCommand():
     try:
         command = r.recognize_google(audio).lower()
 
-        if 'starlight' in command:
-            print('You said: ' + command + '\n')
-            assistant(command)
+        print('You said: ' + command + '\n')
+        assistant(command)
 
     #loop back to continue to listen for commands if unrecognizable speech is received
     except sr.UnknownValueError:
@@ -67,8 +65,8 @@ def assistant(command):
         webbrowser.open(url)
         print('Done!')
 
-    elif 'open ' in command:
-        reg_ex = re.search('open website (.+)', command)
+    elif 'open' in command:
+        reg_ex = re.search('open (.+)', command)
         if reg_ex:
             domain = reg_ex.group(1)
             url = 'https://www.' + domain
@@ -80,11 +78,16 @@ def assistant(command):
             pass
 
     elif 'what\'s up' in command:
-        talkToMe('Just doing my thing')
+        talkToMe('nothing much my nigga')
+
+    elif 'what time is it' in command:
+        talkToMe(ctime())
+
+    elif 'what\'s good' in command:
+        talkToMe('yo momma pussy bitch hahahahahaha')
 
     elif 'goodbye' in command:
-        talkToMe('bye bye, I am shutting down, dear.')
-        print("hello")
+        talkToMe('bye bitch.')
         sys.exit()
 
     elif 'joke' in command:
@@ -98,7 +101,7 @@ def assistant(command):
             talkToMe('oops!I ran out of jokes')
 
     elif 'google search' in command:
-        search_index = command.find('google search') + len('google search') + 1;
+        search_index = command.find('google search') + len('google search');
         search = command[search_index:]
 
         url = "https://www.google.com/search?q=" + search
@@ -106,7 +109,7 @@ def assistant(command):
 
 
     elif 'youtube search' in command:
-        search_index = command.find('youtube search') + len('google search') + 1;
+        search_index = command.find('youtube search') + len('google search');
         search = command[search_index:]
         url = "https://www.youtube.com/results?search_query=" + search
         webbrowser.open(url)
@@ -126,19 +129,24 @@ def assistant(command):
                     talkToMe('The Current weather in %s is %s The temperature is %.1f degrees fahrenheit' % (city, condition.text, (int(condition.temp))*1.8+32))
         except Exception as e:
             talkToMe("you are an idiot")
-    elif 'weather forecast in' in command:
+
+    if 'weather forecast in' in command:
         reg_ex = re.search('weather forecast in (.*)', command)
-        if reg_ex:
-            city = reg_ex.group(1)
-            weather = Weather()
-            location = weather.lookup_by_location(city)
-            forecasts = location.forecast
-            for i in range(0,3):
+        try:
+
+            if reg_ex:
+                city = reg_ex.group(1)
+                weather = Weather()
+                location = weather.lookup_by_location(city)
+                forecasts = location.forecast
+            for i in range(0,1):
                 talkToMe('On %s will it %s. The maximum temperture will be %.1f degrees.'
-                         'The lowest temperature will be %.1f degrees.' % (forecasts[i].date(), forecasts[i].text(), (int(forecasts[i].high())-32)/1.8, (int(forecasts[i].low())-32)/1.8))
+                         'The lowest temperature will be %.1f degrees.' % (forecasts[i].date, forecasts[i].text, (int(forecasts[i].high)-32)/1.8, (int(forecasts[i].low)-32)/1.8))
+        except:
+                talkToMe('what location do you wanna check the forecast in I couldn\'t hear your command master')
 
     elif 'exit program' in command:
-         talkToMe('bye bye, I am shutting down dear.')
+         say('see you later master')
          print("hello")
          sys.exit()
 
@@ -173,8 +181,6 @@ def assistant(command):
 
         else:
             talkToMe('I don\'t know what you mean!')
-
-
 
 
 talkToMe('I am ready for your command')
