@@ -7,7 +7,6 @@ import smtplib
 import requests
 from weather import Weather
 import urllib
-import urllib2
 import sys
 from time import ctime
 
@@ -80,7 +79,7 @@ def assistant(command):
             pass
 
     elif 'what\'s up' in command:
-        talkToMe('nothing much my nigga')
+        talkToMe('nothing much just on standby')
 
     elif 'what time is it' in command:
         talkToMe(ctime())
