@@ -11,6 +11,8 @@ import urllib2
 import sys
 from time import ctime
 
+# TESTING TESGING 123123123
+
 def talkToMe(text):
     "speaks audio passed as argument"
 
