@@ -10,6 +10,24 @@ from weather import Weather
 #import urllib2
 import sys
 
+# be able to email
+import smtplib
+
+
+gmail_user = "dannydenenberg@gmail.com"
+gmail_password = "wag%%qiyimaccentral269"
+
+# All this does is converts speech to text
+def speechToText():
+    # get audio from the microphone
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Speak:")
+        audio = r.listen(source)
+        return r.recognize_google(audio)
+
+
+
 
 # IMPORTANT GMAIL ACCOUNT ID's
 
@@ -39,6 +57,18 @@ def talkToMe(text):
 def myCommand():
     "listens for commands"
 
+    try:
+        command = speechToText().lower()
+        #if 'starlight' in command:
+        print('You said: ' + command + '\n')
+        assistant(command)
+        myCommand()
+    except sr.UnknownValueError:
+        print('Your last command couldn\'t be heard')
+        myCommand()
+
+
+'''
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
@@ -46,6 +76,8 @@ def myCommand():
         r.pause_threshold = 1
         r.adjust_for_ambient_noise(source, duration=1)
         audio = r.listen(source)
+
+
 
     try:
         command = r.recognize_google(audio).lower()
@@ -58,6 +90,8 @@ def myCommand():
     except sr.UnknownValueError:
         print('Your last command couldn\'t be heard')
         myCommand()
+
+'''
 
 def assistant(command):
     "if statements for executing commands"
@@ -156,36 +190,35 @@ def assistant(command):
          sys.exit()
 
 
-    elif 'email' in command:
+
+
+    if 'email' in command:
         talkToMe('Who is the recipient?')
+
+
         recipient = myCommand()
 
-        if 'John' in recipient:
-            talkToMe('What should I say?')
-            content = myCommand()
+        # strip white spaces
+        recipient = recipient.split(' ').join('')
 
-            #init gmail SMTP
-            mail = smtplib.SMTP('smtp.gmail.com', 587)
+        i# creates SMTP session
+        s = smtplib.SMTP('smtp.gmail.com', 587)
 
-            #identify to server
-            mail.ehlo()
+        # start TLS for security
+        s.starttls()
 
-            #encrypt session
-            mail.starttls()
+        # Authentication
+        s.login(gmail_user, gmail_password)
 
-            #login
-            mail.login('username', 'password')
 
-            #send message
-            mail.sendmail('John Fisher', 'JARVIS2.0@protonmail.com', content)
+        # message to be sent
+        message = "Hey, dude. \nThis is starlite....hit me up!"
 
-            #end mail connection
-            mail.close()
+        # sending the mail
+        s.sendmail("dannydenenberg@gmail.com", "blharbour9@gmail.com", message)
 
-            talkToMe('Email sent.')
-
-        else:
-            talkToMe('I don\'t know what you mean!')
+        # terminating the session
+        s.quit()
 
 
 
