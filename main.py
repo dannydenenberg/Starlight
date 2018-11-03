@@ -10,6 +10,9 @@ from weather import Weather
 #import urllib2
 import sys
 
+
+# IMPORTANT GMAIL ACCOUNT ID's
+
 def talkToMe(text):
     "speaks audio passed as argument"
 
@@ -126,16 +129,26 @@ def assistant(command):
                     talkToMe('The Current weather in %s is %s The temperature is %.1f degrees fahrenheit' % (city, condition.text, (int(condition.temp))*1.8+32))
         except Exception as e:
             talkToMe("you are an idiot")
-    elif 'weather forecast in' in command:
+
+# ----------------------------------------------------------------------
+
+
+    if 'weather forecast in' in command:
         reg_ex = re.search('weather forecast in (.*)', command)
-        if reg_ex:
-            city = reg_ex.group(1)
-            weather = Weather()
-            location = weather.lookup_by_location(city)
-            forecasts = location.forecast
-            for i in range(0,3):
-                talkToMe('On %s will it %s. The maximum temperture will be %.1f degrees.'
-                         'The lowest temperature will be %.1f degrees.' % (forecasts[i].date(), forecasts[i].text(), (int(forecasts[i].high())-32)/1.8, (int(forecasts[i].low())-32)/1.8))
+
+        try:
+            if reg_ex:
+                city = reg_ex.group(1)
+                weather = Weather()
+                location = weather.lookup_by_location(city)
+                forecasts = location.forecast
+
+                for i in range(0,1):
+                    talkToMe('On %s will it %s. The maximum temperture will be %.1f degrees.'
+                             'The lowest temperature will be %.1f degrees.' % (forecasts[i].date, forecasts[i].text, (int(forecasts[i].high)-32)/1.8, (int(forecasts[i].low)-32)/1.8))
+        except:
+            talkToMe('I am sorry. I do not know that city.')
+
 
     elif 'exit program' in command:
          talkToMe('bye bye, I am shutting down dear.')
