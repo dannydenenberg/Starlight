@@ -9,6 +9,7 @@ from weather import Weather
 #import urllib
 #import urllib2
 import sys
+from time import ctime
 
 # be able to email
 import smtplib
@@ -27,7 +28,8 @@ def speechToText():
         return r.recognize_google(audio)
 
 
-
+def celToFah(c):
+    return (c * (9.0/5)) + 32
 
 # IMPORTANT GMAIL ACCOUNT ID's
 
@@ -61,40 +63,25 @@ def myCommand():
         command = speechToText().lower()
         #if 'starlight' in command:
         print('You said: ' + command + '\n')
-        assistant(command)
-        myCommand()
-    except sr.UnknownValueError:
-        print('Your last command couldn\'t be heard')
-        myCommand()
-
-
-'''
-    r = sr.Recognizer()
-
-    with sr.Microphone() as source:
-        print('Ready...')
-        r.pause_threshold = 1
-        r.adjust_for_ambient_noise(source, duration=1)
-        audio = r.listen(source)
-
-
-
-    try:
-        command = r.recognize_google(audio).lower()
 
         if 'starlight' in command:
-            print('You said: ' + command + '\n')
             assistant(command)
-
-    #loop back to continue to listen for commands if unrecognizable speech is received
     except sr.UnknownValueError:
         print('Your last command couldn\'t be heard')
-        myCommand()
 
-'''
+    myCommand()
+
 
 def assistant(command):
     "if statements for executing commands"
+
+
+    if 'pendejo' in command:
+        talkToMe('Que estas haciendo, puta! Cajate')
+    if 'what time is' in command:
+        talkToMe(ctime())
+
+
     if 'open reddit' in command:
         reg_ex = re.search('open reddit (.*)', command)
         url = 'https://www.reddit.com/'
@@ -178,8 +165,9 @@ def assistant(command):
                 forecasts = location.forecast
 
                 for i in range(0,1):
-                    talkToMe('On %s will it %s. The maximum temperture will be %.1f degrees.'
-                             'The lowest temperature will be %.1f degrees.' % (forecasts[i].date, forecasts[i].text, (int(forecasts[i].high)-32)/1.8, (int(forecasts[i].low)-32)/1.8))
+                    talkToMe('''On %s will it %s. The maximum temperture will be %.1f degrees.\n
+                    The lowest temperature will be %.1f degrees.''' %
+                    (forecasts[i].date, forecasts[i].text, int(celToFah(forecasts[i].high)), int(celToFah(forecasts[i].low))))
         except:
             talkToMe('I am sorry. I do not know that city.')
 
@@ -194,14 +182,23 @@ def assistant(command):
 
     if 'email' in command:
         talkToMe('Who is the recipient?')
+        recipient = speechToText()
+
+        # strip white spaces and change 'at' to @
+        arrR = recipient.split(' ')
+        for i in range(len(arrR)):
+            if arrR[i] == 'at':
+                arrR[i] = "@"
+
+        recipient = ''.join(arrR)
 
 
-        recipient = myCommand()
+        print('Recipient: ' + recipient)
 
-        # strip white spaces
-        recipient = recipient.split(' ').join('')
 
-        i# creates SMTP session
+
+
+        # creates SMTP session
         s = smtplib.SMTP('smtp.gmail.com', 587)
 
         # start TLS for security
@@ -211,14 +208,21 @@ def assistant(command):
         s.login(gmail_user, gmail_password)
 
 
+        talkToMe('What would to like to say?')
         # message to be sent
-        message = "Hey, dude. \nThis is starlite....hit me up!"
+        message = speechToText()
 
+
+
+        talkToMe('Okay, sending email')
         # sending the mail
-        s.sendmail("dannydenenberg@gmail.com", "blharbour9@gmail.com", message)
+        s.sendmail(gmail_user, recipient, message)
+
 
         # terminating the session
         s.quit()
+
+
 
 
 
