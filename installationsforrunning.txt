@@ -3,4 +3,4 @@ sudo pip3 install SpeechRecognition
 sudo pip3 install weather-api
 sudo pip3 install pyaudio
 sudo apt-get install mpg123 # for playing sound
-
+sudo pip3 install newsapi

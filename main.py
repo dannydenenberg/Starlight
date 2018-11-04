@@ -10,14 +10,14 @@ from weather import Weather
 #import urllib2
 import sys
 from time import ctime
+import requests
 
 # be able to email
 import smtplib
 import importlib
 
 
-gmail_user = "dannydenenberg@gmail.com"
-gmail_password = ""
+
 
 # All this does is converts speech to text
 def speechToText():
@@ -49,11 +49,11 @@ def talkToMe(text):
 
     # Saving the converted audio in a mp3 file named
     # welcome
-    myobj.save("welcome1.mp3")
+    myobj.save("x.mp3")
 
     # Playing the converted file
-    os.system("mpg123 welcome1.mp3")
-    os.system("rm welcome1.mp3")
+    os.system("mpg123 x.mp3")
+    os.system("rm x.mp3")
 
 
 

@@ -2,6 +2,9 @@ email
 talkToMe('Who is the recipient?')
 recipient = speechToText()
 
+gmail_user = "dannydenenberg@gmail.com"
+gmail_password = ""
+
 # strip white spaces and change 'at' to @
 arrR = recipient.split(' ')
 for i in range(len(arrR)):
