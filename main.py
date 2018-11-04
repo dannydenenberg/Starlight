@@ -13,6 +13,7 @@ from time import ctime
 
 # be able to email
 import smtplib
+import importlib
 
 
 gmail_user = "dannydenenberg@gmail.com"
@@ -72,159 +73,29 @@ def myCommand():
     myCommand()
 
 
+
+## Handles all of the commands
 def assistant(command):
-    "if statements for executing commands"
+    os.chdir('commands')
 
+    for file_n in os.listdir():
+        with open(file_n) as file:
+            contents = file.read()
+            com = contents[:contents.find('\n')].split('|') # what is the command to search for in what the person said: you can add multiple commands by separating them with pipes (|)
+            for com_specific in com:
+                if com_specific in command:
+                    exec(contents[contents.find('\n'):]) # execute the code directly under the command to search for
+                    break
 
-    if 'pendejo' in command:
-        talkToMe('Que estas haciendo, puta! Cajate')
-    if 'what time is' in command:
-        talkToMe(ctime())
-
-
-    if 'open reddit' in command:
-        reg_ex = re.search('open reddit (.*)', command)
-        url = 'https://www.reddit.com/'
-        if reg_ex:
-            subreddit = reg_ex.group(1)
-            url = url + 'r/' + subreddit
-        webbrowser.open(url)
-        print('Done!')
-
-    elif 'open ' in command:
-        reg_ex = re.search('open website (.+)', command)
-        if reg_ex:
-            domain = reg_ex.group(1)
-            url = 'https://www.' + domain
-            url = url.replace(" ", "")
-            #url = url.replace("%20", "")
-            webbrowser.open(url)
-            print('Done!')
-        else:
-            pass
-
-    elif 'what\'s up' in command:
-        talkToMe('Just doing my thing')
-
-    elif 'goodbye' in command:
-        talkToMe('bye bye, I am shutting down, dear.')
-        print("hello")
-        sys.exit()
-
-    elif 'joke' in command:
-        res = requests.get(
-                'https://icanhazdadjoke.com/',
-                headers={"Accept":"application/json"}
-                )
-        if res.status_code == requests.codes.ok:
-            talkToMe(str(res.json()['joke']))
-        else:
-            talkToMe('oops!I ran out of jokes')
-
-    elif 'google search' in command:
-        search_index = command.find('google search') + len('google search') + 1;
-        search = command[search_index:]
-
-        url = "https://www.google.com/search?q=" + search
-        webbrowser.open(url)
-
-
-    elif 'youtube search' in command:
-        search_index = command.find('youtube search') + len('google search') + 1;
-        search = command[search_index:]
-        url = "https://www.youtube.com/results?search_query=" + search
-        webbrowser.open(url)
-
-    elif 'weather in' or 'temperature in' in command:
-        reg_ex = []
-        reg_ex.append(re.search('weather in (.*)', command))
-        reg_ex.append(re.search('temperature in (.*)', command))
-
-        try:
-            for each_reg_ex in reg_ex:
-                if each_reg_ex:
-                    city = each_reg_ex.group(1)
-                    weather = Weather()
-                    location = weather.lookup_by_location(city)
-                    condition = location.condition
-                    talkToMe('The Current weather in %s is %s The temperature is %.1f degrees fahrenheit' % (city, condition.text, (int(condition.temp))*1.8+32))
-        except Exception as e:
-            talkToMe("you are an idiot")
-
-# ----------------------------------------------------------------------
-
-
-    if 'weather forecast in' in command:
-        reg_ex = re.search('weather forecast in (.*)', command)
-
-        try:
-            if reg_ex:
-                city = reg_ex.group(1)
-                weather = Weather()
-                location = weather.lookup_by_location(city)
-                forecasts = location.forecast
-
-                for i in range(0,1):
-                    talkToMe('''On %s will it %s. The maximum temperture will be %.1f degrees.\n
-                    The lowest temperature will be %.1f degrees.''' %
-                    (forecasts[i].date, forecasts[i].text, int(celToFah(forecasts[i].high)), int(celToFah(forecasts[i].low))))
-        except:
-            talkToMe('I am sorry. I do not know that city.')
-
-
-    elif 'exit program' in command:
-         talkToMe('bye bye, I am shutting down dear.')
-         print("hello")
-         sys.exit()
+    os.chdir('..') # go back to root
 
 
 
 
-    if 'email' in command:
-        talkToMe('Who is the recipient?')
-        recipient = speechToText()
 
-        # strip white spaces and change 'at' to @
-        arrR = recipient.split(' ')
-        for i in range(len(arrR)):
-            if arrR[i] == 'at':
-                arrR[i] = "@"
-
-        recipient = ''.join(arrR)
-
-
-        print('Recipient: ' + recipient)
-
-
-
-
-        # creates SMTP session
-        s = smtplib.SMTP('smtp.gmail.com', 587)
-
-        # start TLS for security
-        s.starttls()
-
-        # Authentication
-        s.login(gmail_user, gmail_password)
-
-
-        talkToMe('What would to like to say?')
-        # message to be sent
-        message = speechToText()
-
-
-
-        talkToMe('Okay, sending email')
-        # sending the mail
-        s.sendmail(gmail_user, recipient, message)
-
-
-        # terminating the session
-        s.quit()
-
-
-
-
+def read_file(file):
+    with open(file, 'r') as myfile:
+        return myfile.read()
 
 
 talkToMe('I am ready for your command')

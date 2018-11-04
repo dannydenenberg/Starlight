@@ -1,0 +1,10 @@
+if [ $# -ne 2 ]
+	then
+		echo "Wrong number of arguments."
+		echo "Usage: create_new_command <filename> <editor>"
+		exit 1
+fi
+
+cd commands
+touch "$1.py"
+$2 "$1.py"
