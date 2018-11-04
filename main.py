@@ -17,7 +17,7 @@ import importlib
 
 
 gmail_user = "dannydenenberg@gmail.com"
-gmail_password = "wag%%qiyimaccentral269"
+gmail_password = ""
 
 # All this does is converts speech to text
 def speechToText():
