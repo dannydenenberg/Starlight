@@ -1,5 +1,5 @@
-ghetto
+sweet brown
 os.chdir('..')
 # Playing the converted file
-os.system("mpg123 ghetto.mp3")
+os.system("mpg123 sweet_brown.mp3")
 os.chdir('commands')
