@@ -6,6 +6,8 @@ When creating a new command, execute the create_new_command file. Then, in the f
 
 ----------------------------------------------------------------------
 
+```python
 please say hello|any thing else to respond to
 
 print('hello')
+```
