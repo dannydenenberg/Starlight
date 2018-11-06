@@ -1,21 +1,32 @@
+# google text to speech; extremely important for the speech to text function
 from gtts import gTTS
+
+# speech to text
 import speech_recognition as sr
+
+#interact with the os' operating system
 import os
+
+# regular expressions
 import re
+
+# allows the python to open a window on the default browser and search something
 import webbrowser
-import smtplib
-import requests
-from weather import Weather
-#import urllib
-#import urllib2
-import sys
-from time import ctime
-import requests
 
 # be able to email
 import smtplib
-import importlib
 
+# GET, PUT, etc. send request to server --> recieve code; used in the jokes file in commands
+import requests
+
+# used to request weather; another possibility is to use the requests module for a site, which I think is entirely possible, but this works too
+from weather import Weather
+
+# interacts with the operating system as does `os`; you can exit a program as well
+import sys
+
+# gets the entire date; month, day, year, hours, minutes, seconds
+from time import ctime
 
 
 
@@ -66,7 +77,10 @@ def myCommand():
         print('You said: ' + command + '\n')
 
         if 'starlight' in command:
-            assistant(command)
+            try:
+                assistant(command)
+            except:
+                talkToMe('Something went wrong when calling the function assistant(). Please debug for furthur knowledge of issue.')
     except sr.UnknownValueError:
         print('Your last command couldn\'t be heard')
 
