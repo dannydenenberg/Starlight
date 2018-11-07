@@ -30,6 +30,9 @@ from time import ctime
 
 
 
+
+
+
 # All this does is converts speech to text
 def speechToText():
     # get audio from the microphone
@@ -45,6 +48,8 @@ def celToFah(c):
 
 # IMPORTANT GMAIL ACCOUNT ID's
 
+
+## NOTE: Add extra print statements in here if the Pi's sound output is not working 
 def talkToMe(text):
     "speaks audio passed as argument"
 
