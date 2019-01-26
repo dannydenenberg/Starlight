@@ -46,10 +46,9 @@ def speechToText():
 def celToFah(c):
     return (c * (9.0/5)) + 32
 
-# IMPORTANT GMAIL ACCOUNT ID's
 
 
-## NOTE: Add extra print statements in here if the Pi's sound output is not working 
+## NOTE: Add extra print statements in here if the Pi's sound output is not working
 def talkToMe(text):
     "speaks audio passed as argument"
 
@@ -63,8 +62,7 @@ def talkToMe(text):
     # have a high speed
     myobj = gTTS(text=text, lang=language, slow=False)
 
-    # Saving the converted audio in a mp3 file named
-    # welcome
+    # Saving the converted audio in a mp3 file named `x.mp3`
     myobj.save("x.mp3")
 
     # Playing the converted file
@@ -72,24 +70,26 @@ def talkToMe(text):
     os.system("rm x.mp3")
 
 
-
+# where the text said is taken and used
 def myCommand():
     "listens for commands"
 
     try:
         command = speechToText().lower()
+
         #if 'starlight' in command:
         print('You said: ' + command + '\n')
 
         if 'starlight' in command:
             try:
+                # talkToMe('You said starlight! Yay!')
                 assistant(command)
             except:
                 talkToMe('Something went wrong when calling the function assistant(). Please debug for furthur knowledge of issue.')
     except sr.UnknownValueError:
         print('Your last command couldn\'t be heard')
 
-    myCommand()
+
 
 
 
@@ -118,6 +118,7 @@ def read_file(file):
 
 
 talkToMe('I am ready for your command')
+
 
 #loop to continue executing multiple commands
 while True:
