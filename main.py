@@ -20,7 +20,7 @@ import smtplib
 import requests
 
 # used to request weather; another possibility is to use the requests module for a site, which I think is entirely possible, but this works too
-from weather import Weather
+#from weather import Weather
 
 # interacts with the operating system as does `os`; you can exit a program as well
 import sys
@@ -30,7 +30,16 @@ from time import ctime
 
 
 
-
+# for facial recognition
+def take_picture():
+    import time
+    import cv2
+    camera_port = 0
+    camera = cv2.VideoCapture(camera_port)
+    time.sleep(0.1)  # If you don't wait, the image will be dark
+    return_value, image = camera.read()
+    cv2.imwrite("images/opencvwebcampic.png", image)
+    del(camera)  # so that others can use the camera as soon as possible
 
 
 # All this does is converts speech to text
@@ -66,7 +75,7 @@ def talkToMe(text):
     myobj.save("x.mp3")
 
     # Playing the converted file
-    os.system("mpg123 x.mp3")
+    os.system("mpg321 x.mp3")
     os.system("rm x.mp3")
 
 
