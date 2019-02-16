@@ -1,2 +1,3 @@
-what time is it|what time
-talkToMe(ctime())
+what time is it|time
+
+talkToMe (time.strftime("%I:%M:%p"))

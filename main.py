@@ -1,6 +1,12 @@
 # google text to speech; extremely important for the speech to text function
 from gtts import gTTS
 
+# for plaing youtube video
+from bs4 import BeautifulSoup as bs
+
+# important for facial recognition
+import face_recognition
+
 # speech to text
 import speech_recognition as sr
 
@@ -26,21 +32,36 @@ import requests
 import sys
 
 # gets the entire date; month, day, year, hours, minutes, seconds
-from time import ctime
+import time
 
 
 
 # for facial recognition
-def take_picture():
+def take_picture(path):
     import time
     import cv2
     camera_port = 0
     camera = cv2.VideoCapture(camera_port)
     time.sleep(0.1)  # If you don't wait, the image will be dark
     return_value, image = camera.read()
-    cv2.imwrite("images/opencvwebcampic.png", image)
+    cv2.imwrite(path, image)
     del(camera)  # so that others can use the camera as soon as possible
 
+# compares a picture taken now to the one stored in 'faces'
+def who_am_i():
+    pic_path = '../faces/' + os.listdir('../faces')[0]
+    take_picture('test.png')
+
+    known_image = face_recognition.load_image_file(pic_path)
+    unknown_image = face_recognition.load_image_file("test.png")
+
+    person_encoding = face_recognition.face_encodings(known_image)[0]
+    unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+
+    results = face_recognition.compare_faces([person_encoding], unknown_encoding)
+
+    os.system('rm test.png')
+    return results[0]
 
 # All this does is converts speech to text
 def speechToText():
@@ -93,8 +114,9 @@ def myCommand():
             try:
                 # talkToMe('You said starlight! Yay!')
                 assistant(command)
-            except:
-                talkToMe('Something went wrong when calling the function assistant(). Please debug for furthur knowledge of issue.')
+            except Exception as e:
+                talkToMe('Something went wrong.')
+                print(e)
     except sr.UnknownValueError:
         print('Your last command couldn\'t be heard')
 
