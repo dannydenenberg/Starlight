@@ -49,19 +49,29 @@ def take_picture(path):
 
 # compares a picture taken now to the one stored in 'faces'
 def who_am_i():
+    print("starting whoami:")
     pic_path = '../faces/' + os.listdir('../faces')[0]
+    print(f'pic path = {pic_path}')
+
     take_picture('test.png')
 
     known_image = face_recognition.load_image_file(pic_path)
     unknown_image = face_recognition.load_image_file("test.png")
 
+    print('starting encodings')
     person_encoding = face_recognition.face_encodings(known_image)[0]
     unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
+    print('making results')
     results = face_recognition.compare_faces([person_encoding], unknown_encoding)
 
+    print('deleting test.png')
     os.system('rm test.png')
-    return results[0]
+
+    # if there are no faces in the image, then there will be no true or false values in the array, it will just be []
+
+    print('returning results')
+    return results
 
 # All this does is converts speech to text
 def speechToText():
