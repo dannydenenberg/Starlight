@@ -1,11 +1,32 @@
 # Starlite
 A Google-home type helper
 
+## Installation
+1. Clone the repository from the terminal
+```bash
+$ git clone https://github.com/dannydenenberg/Starlite.git
 
-When creating a new command, execute the create_new_command file. Then, in the first line of the new file created, you put the commands you wish to respond to separated by pipes and the code below. For example, if you wanted to respond by printing 'hello' to the person saying 'please say hello', you would write in the file:
+```
+2. Move into the top level directory of the project
+```bash
+$ cd Starlite
 
-----------------------------------------------------------------------
+```
 
-please say hello|any thing else to respond to
+## Usage
+1. Make sure you are in the top level of the project directory before running
+2. Run the main script using python 3
+```python
+$ python3 main.py
+```
+3. Talk to Starlite!
 
-print('hello')
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to test the addition so that it will work on a Raspberry Pi or similar Linux enviornments
+
+## Adding/Editing Commands
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
