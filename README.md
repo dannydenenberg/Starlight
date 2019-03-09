@@ -1,5 +1,5 @@
 # Starlite
-A Google-home type helper.
+A hackable Google-home type helper.
 
 ## Installation
 1. Clone the repository from the terminal
