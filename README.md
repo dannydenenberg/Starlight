@@ -1,5 +1,5 @@
 # Starlite
-A hackable Google-home type helper.
+A hackable voice command assistant for a screen.
 
 ## Installation
 1. Clone the repository from the terminal
