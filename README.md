@@ -1,5 +1,5 @@
 # Starlite
-A hackable voice command assistant for a screen.
+A hackable voice command assistant for your computer.
 
 ## Installation
 1. Clone the repository from the terminal
