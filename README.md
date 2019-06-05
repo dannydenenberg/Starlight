@@ -20,7 +20,7 @@ $ cd Starlite
 ```python
 $ python3 main.py
 ```
-4. Talk to Starlite! All commands issued at starlite must begin with the word "starlite", such as "starlite, send an email"
+4. Talk to Starlite! All commands issued at starlite must begin with the word *"starlite"* or contain the word *"starlite"*, such as **"starlite, send an email"** or **"hey starlite, google search beethoven"**
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
