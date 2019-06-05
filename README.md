@@ -15,11 +15,12 @@ $ cd Starlite
 
 ## Usage
 1. Make sure you are in the top level of the project directory before running
-2. Run the main script using python 3
+2. Install all of the dependencies listed in the **`installationsforrunning.txt`** file
+3. Run the main script using python 3
 ```python
 $ python3 main.py
 ```
-3. Talk to Starlite! All commands issued at starlite must begin with the word "starlite", such as "starlite, send an email"
+4. Talk to Starlite! All commands issued at starlite must begin with the word "starlite", such as "starlite, send an email"
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
