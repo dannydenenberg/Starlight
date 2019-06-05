@@ -35,6 +35,7 @@ The structure of a command file is as follows:
   jump|you are cool
   talkToMe('awesome')
   ```
+  All of the functions or global variables in [main.py](/main.py) are visible inside of each command file. The above code snippet uses the ```talkToMe(str)``` function defined in the main python file for turning text (a.k.a a string) into speech by the computer.
 
 ## Adding/Editing Commands
 The file structure for commands goes as follows:
