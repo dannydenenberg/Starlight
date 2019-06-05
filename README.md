@@ -5,7 +5,6 @@ A hackable voice command assistant for your computer. The docs are below.
 1. Clone the repository from the terminal
 ```bash
 $ git clone https://github.com/dannydenenberg/Starlite.git
-
 ```
 2. Move into the top level directory of the project
 ```bash
