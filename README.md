@@ -61,5 +61,3 @@ The file structure for commands goes as follows:
 ## Please Note
 Starlite heavily utilizes Google's Text-to-Speech and Speech-to-Text APIs and thus relies on a fast connection to the internet. If you are experiencing a slower experience, check your device's WIFI connection.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
