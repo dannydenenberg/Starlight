@@ -15,7 +15,7 @@ $ cd Starlite
 
 ## Usage
 1. Make sure you are in the top level of the project directory before running
-2. Install all of the dependencies listed in the **`installationsforrunning.txt`** file
+2. Install all of the dependencies listed in the [`installationsforrunning.txt`](/installationsforrunning.txt) file
 3. Run the main script using python 3
 ```python
 $ python3 main.py
