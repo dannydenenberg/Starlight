@@ -1,4 +1,4 @@
-# Starlite
+# Starlight
 A hackable voice command assistant for your computer. The docs are below.
 
 ## Installation
